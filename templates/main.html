@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Store</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('index') }}">LOGOUT</a>
+    <h1>Online Store</h1>
+    <h3>Your Balance: $<span id="balance">1000</span></h3>
+<br>
+    <div class="product">
+        <h2>BANANA</h2>
+        <p>Price: $10</p>
+        <button onclick="addToCart(10)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>APPLES</h2>
+        <p>Price: $20</p>
+        <button onclick="addToCart(20)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>KIWI</h2>
+        <p>Price: $30</p>
+        <button onclick="addToCart(30)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>WATERMELON</h2>
+        <p>Price: $40</p>
+        <button onclick="addToCart(40)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>ORANGE</h2>
+        <p>Price: $15</p>
+        <button onclick="addToCart(15)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>MANGO</h2>
+        <p>Price: $25</p>
+        <button onclick="addToCart(25)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>GRAPES</h2>
+        <p>Price: $12</p>
+        <button onclick="addToCart(12)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>PINEAPPLE</h2>
+        <p>Price: $18</p>
+        <button onclick="addToCart(18)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>STRAWBERRY</h2>
+        <p>Price: $8</p>
+        <button onclick="addToCart(8)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>LEMON</h2>
+        <p>Price: $6</p>
+        <button onclick="addToCart(6)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>PEACH</h2>
+        <p>Price: $22</p>
+        <button onclick="addToCart(22)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <h2>PLUM</h2>
+        <p>Price: $10</p>
+        <button onclick="addToCart(10)">Add to Cart</button>
+    </div>
+    <br>
+    <input type="text" id="couponCode" placeholder="Coupon code">
+    <button onclick="applyCoupon()">Apply Coupon</button><br>
+    <button id="buyButton" onclick="buy()">Buy</button>
+    <div class="cart" id="cartIcon"></div>
+
+    <script>
+        let cartItems = [];
+        let balance = 1000;
+
+        function addToCart(price) {
+            cartItems.push(price);
+            updateCartIcon();
+        }
+
+        function buy() {
+            let totalPrice = cartItems.reduce((acc, curr) => acc + curr, 0);
+            if (totalPrice > balance) {
+                alert("Insufficient balance!");
+            } else {
+                balance -= totalPrice;
+                document.getElementById("balance").textContent = balance;
+                alert("Purchase successful!");
+            }
+            cartItems = [];
+            updateCartIcon();
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById("couponCode").value;
+            if (couponCode === "htm100") {
+                balance += 1000;
+                document.getElementById("balance").textContent = balance;
+                alert("Coupon applied successfully! $1000 added to your balance.");
+            } else {
+                alert("Invalid coupon code. ENTER A VALID ONE!");
+            }
+        }
+
+        function updateCartIcon() {
+            const cartIcon = document.getElementById("cartIcon");
+            cartIcon.textContent = cartItems.length;
+        }
+    </script>
+</body>
+</html>
